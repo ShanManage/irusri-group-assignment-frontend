@@ -6,3 +6,4 @@
 
 export { default as EcButton } from './e-com-button/EcButton'
 export { default as EcInput } from './e-com-input/EcInput'
+export { default as EcIcon } from './e-com-icon/EcIcon'
