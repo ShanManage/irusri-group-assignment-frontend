@@ -1,7 +1,11 @@
 /* Ant Overrides */
 /* This file contains custom CSS rules to override default Ant Design styles across the application.  */
 
-.ant-btn {
+.ant-btn,
+.ant-input,
+.ant-input-affix-wrapper,
+.ant-input-number-input,
+input {
   border-radius: var(--border-radius) !important; 
 }
 
@@ -26,5 +30,14 @@
 .ant-btn-primary:focus {
   background-color: var(--primary-color-lighter) !important;
   color: white !important;
+  border-color: var(--primary-color) !important;
+}
+
+/* INPUT FIELDS OVERRIDES */
+.ant-input:hover,
+.ant-input:focus,
+.ant-input-affix-wrapper:hover,
+.ant-input-affix-wrapper:focus,
+.ant-input-affix-wrapper-focused {
   border-color: var(--primary-color) !important;
 }
