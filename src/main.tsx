@@ -2,8 +2,9 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import { ConfigProvider, ThemeConfig } from 'antd'
-import './styles/variables.css'
+import './styles/variables.scss'
 import './styles/ant-overrides.css'
+import './styles/main.css'
 
 const config: ThemeConfig = {}
 
