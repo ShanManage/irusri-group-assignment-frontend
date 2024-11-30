@@ -1,0 +1,5 @@
+
+export const APP_PAGINATE_CONFIG = {
+  DEFAULT_ITEMS_PER_PAGE: 12,
+  DEFAULT_PAGE: 1
+}

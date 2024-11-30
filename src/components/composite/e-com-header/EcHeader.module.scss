@@ -2,12 +2,16 @@
 
 .header {
   width: 100%;
-  position: sticky;
+  position: fixed;
   top: 0;
   z-index: 1000;
   background-color: #fff;
   transition: all 0.3s ease;
-  padding: 10px;
+  height: 8vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
   
   @media (max-width: $m) {
     padding: 0;;

@@ -5,8 +5,7 @@ import {
   ShoppingCartOutlined,
   SearchOutlined,
 } from '@ant-design/icons';
-import { Divider, Drawer, Flex, Image, List, Typography } from 'antd';
-import logo from '../../../assets/logo.svg'
+import { Drawer, Flex, List, Typography } from 'antd';
 import { EcIcon, EcInput } from '../../atom';
 
 const { Text, Title } = Typography
@@ -23,35 +22,32 @@ const EcHeader: React.FC = () => {
   ];
 
   return (
-    <header className={styles.header}>
-      <Flex justify='space-between' align='center'>
-        {/* Mobile Menu Icon */}
-        <div className={styles.mobile}>
-          <EcIcon icon={MenuOutlined} onClick={toggleDrawer} />
-        </div>
+    <header className={`${styles.header} container`}>
+      {/* Mobile Menu Icon */}
+      <div className={styles.mobile}>
+        <EcIcon icon={MenuOutlined} onClick={toggleDrawer} />
+      </div>
 
-        {/* Logo Centered on Mobile */}
-        <Title className='zero-margin' type='warning'>ECOM-SHOP</Title>
-        <div className={styles.mobile}></div>
+      {/* Logo Centered on Mobile */}
+      <Title className='zero-margin' type='warning'>ECOM-SHOP</Title>
+      <div className={styles.mobile}></div>
 
 
-        {/* Desktop Search Bar */}
-        <div className={styles.search}>
-          <EcInput placeholder="What are you looking for ...?" type='search' suffix={<SearchOutlined />}/>
-        </div>
+      {/* Desktop Search Bar */}
+      <div className={styles.search}>
+        <EcInput placeholder="What are you looking for ...?" type='search' suffix={<SearchOutlined />} />
+      </div>
 
-        {/* Desktop Icons */}
-        <Flex justify='space-between' align='center' gap={20} className={styles.desktopIcons}>
-          <EcIcon icon={ShoppingCartOutlined} text="My Cart" onClick={() => { }} count={3} />
-        </Flex>
+      {/* Desktop Icons */}
+      <Flex justify='space-between' align='center' gap={20} className={styles.desktopIcons}>
+        <EcIcon icon={ShoppingCartOutlined} text="My Cart" onClick={() => { }} count={3} />
       </Flex>
-      <Divider className='zero-margin'/>
 
       {/* Fullscreen Drawer for Mobile */}
       <Drawer
         title={
           <Flex justify='center' align='center'>
-            <Image src={logo} preview={false} width={150} alt="Logo"/>
+            <Title className='zero-margin' type='warning'>ECOM-SHOP</Title>
           </Flex>
         }
         placement="right"

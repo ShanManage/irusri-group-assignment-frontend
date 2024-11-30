@@ -4,7 +4,7 @@ import App from './App.tsx'
 import { ConfigProvider, ThemeConfig } from 'antd'
 import './styles/variables.scss'
 import './styles/ant-overrides.css'
-import './styles/main.css'
+import './styles/main.scss'
 import { AuthProvider } from './context/AuthContext.tsx'
 
 const config: ThemeConfig = {}
