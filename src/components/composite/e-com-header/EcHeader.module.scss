@@ -1,0 +1,43 @@
+@import '../../../styles/variables.scss';
+
+.header {
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: #fff;
+  transition: all 0.3s ease;
+  padding: 10px;
+  
+  @media (max-width: $m) {
+    padding: 0;;
+  }
+
+  .search {
+    flex: 1;
+    max-width: 600px;
+    transition: all 0.3s ease;
+    margin: 0px 20px;
+
+    @media (max-width: $m) {
+      display: none;
+    }
+  }
+
+  .desktopIcons {
+    display: flex;
+
+    @media (max-width: $m) {
+      display: none;
+    }
+  }
+
+  .mobile {
+    display: none;
+
+    @media (max-width: $m) {
+      display: block;
+    }
+  }
+
+}

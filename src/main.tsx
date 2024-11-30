@@ -4,6 +4,7 @@ import App from './App.tsx'
 import { ConfigProvider, ThemeConfig } from 'antd'
 import './styles/variables.scss'
 import './styles/ant-overrides.css'
+import './styles/main.css'
 
 const config: ThemeConfig = {}
 
