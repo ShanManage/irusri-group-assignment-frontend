@@ -5,13 +5,16 @@ import { ConfigProvider, ThemeConfig } from 'antd'
 import './styles/variables.scss'
 import './styles/ant-overrides.css'
 import './styles/main.css'
+import { AuthProvider } from './context/AuthContext.tsx'
 
 const config: ThemeConfig = {}
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <ConfigProvider theme={config}>
-      <App />
-    </ConfigProvider>
+    <AuthProvider>
+      <ConfigProvider theme={config}>
+        <App />
+      </ConfigProvider>
+    </AuthProvider>
   </StrictMode>,
 )

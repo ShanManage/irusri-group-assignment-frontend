@@ -31,7 +31,7 @@ const EcHeader: React.FC = () => {
         </div>
 
         {/* Logo Centered on Mobile */}
-        <Title className='zero-margin' type='warning'>IRUSRI-ECOM</Title>
+        <Title className='zero-margin' type='warning'>ECOM-SHOP</Title>
         <div className={styles.mobile}></div>
 
 

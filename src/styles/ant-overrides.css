@@ -59,3 +59,7 @@ input {
 .ant-input-affix-wrapper-focused {
   border-color: var(--primary-color) !important;
 }
+
+.ant-input-prefix {
+  color: #c0c3c6 !important;
+}
