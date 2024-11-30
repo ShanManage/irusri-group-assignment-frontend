@@ -1,13 +1,15 @@
 
 import React from 'react';
-import { Card, Image, Typography } from 'antd';
+import { Card, FloatButton, Image, Typography } from 'antd';
 import styles from './EcProductCard.module.scss';
+import { ShoppingCartOutlined } from '@ant-design/icons';
 
 export interface EcProductCardProps {
   title: string;
   subtitle: string;
   price: number;
   image: string;
+  onAddToCart: () => void
 }
 
 const EcProductCard: React.FC<EcProductCardProps> = ({
@@ -15,6 +17,7 @@ const EcProductCard: React.FC<EcProductCardProps> = ({
   subtitle,
   price,
   image,
+  onAddToCart
 }) => {
 
   return (
@@ -22,7 +25,18 @@ const EcProductCard: React.FC<EcProductCardProps> = ({
       hoverable
       bordered={false}
       className={styles.card}
-      cover={<Image preview={false} alt={title} src={image}/>}
+      cover={
+        <div style={{ position: 'relative' }}>
+          <Image preview={false} alt={title} src={image} />
+          <FloatButton
+            icon={<ShoppingCartOutlined />}
+            type="primary"
+            shape="circle"
+            className={styles.floatButton}
+            onClick={onAddToCart}
+          />
+        </div>
+    }
     >
       <Typography.Text type="secondary" ellipsis>
         {subtitle}

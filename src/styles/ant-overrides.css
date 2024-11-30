@@ -29,9 +29,27 @@ input {
 .ant-btn-primary:hover,
 .ant-btn-primary:focus {
   background-color: var(--primary-color-lighter) !important;
+  color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+}
+
+/* FLOAT BUTTON */
+.ant-float-btn-primary,
+.ant-float-btn-body {
+  background-color: var(--primary-color) !important;
   color: white !important;
   border-color: var(--primary-color) !important;
 }
+
+.ant-float-btn-primary:hover,
+.ant-float-btn-primary:focus,
+.ant-float-btn-body:hover,
+.ant-float-btn-body:focus {
+  background-color: var(--primary-color-lighter) !important;
+  color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+}
+
 
 /* INPUT FIELDS OVERRIDES */
 .ant-input:hover,
