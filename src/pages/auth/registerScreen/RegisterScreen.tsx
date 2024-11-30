@@ -1,25 +1,25 @@
 import { Flex, Card, Typography } from 'antd'
-import { Login } from '../../../components/auth'
 import { APP_ROUTES } from '../../../constant'
 import { useNavigate } from 'react-router-dom'
+import { Register } from '../../../components/auth'
 
 const { Text, Link } = Typography
 
-const LoginScreen = () => {
+const RegisterScreen = () => {
   const navigate = useNavigate()
 
   const onNavigate = () => {
-    navigate(APP_ROUTES.REGISTER)
+    navigate(APP_ROUTES.LOGIN)
   }
   return (
     <Flex justify="center" align='center'>
       <Card styles={{ body: { padding: '60px 60px', width: '400px' } }}>
-        <Login />
+        <Register />
         <Flex justify="center">
           <Text>
-            Don't you have an account?{' '}
+            Do you have an account?{' '}
             <Link onClick={onNavigate}>
-              Sign up
+              Sign in
             </Link>
           </Text>
         </Flex>
@@ -28,4 +28,4 @@ const LoginScreen = () => {
   )
 }
 
-export default LoginScreen
+export default RegisterScreen

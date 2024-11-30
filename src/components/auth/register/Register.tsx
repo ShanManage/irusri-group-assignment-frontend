@@ -6,22 +6,22 @@ import {
   Typography,
 } from "antd"
 import { LockOutlined, MailOutlined } from '@ant-design/icons';
-import { LoginFormFields } from "../../../interface";
+import { RegisterFormFields } from "../../../interface";
 import { EcButton } from "../../atom";
 
 const { Text, Title } = Typography
 
-const Login = () => {
+const Register = () => {
   return (
     <>
       <Flex justify="center">
         <Title className='zero-margin' type='warning'>ECOM-SHOP</Title>
       </Flex>
-      <Flex justify="center"><Text disabled>Sign in to your account</Text></Flex><br /><br />
+      <Flex justify="center"><Text disabled>Sign up to your account</Text></Flex><br /><br />
 
       <Form onFinish={() => {}}>
         <Space direction="vertical" className="full-width">
-          <Form.Item<LoginFormFields>
+          <Form.Item<RegisterFormFields>
             name="username"
             rules={[
               { required: true, message: 'Please enter your Email!' },
@@ -34,7 +34,7 @@ const Login = () => {
               placeholder='Email Address'
             />
           </Form.Item>
-          <Form.Item<LoginFormFields>
+          <Form.Item<RegisterFormFields>
             name="password"
             rules={[{ required: true, message: 'Please enter your password!' }]}
           >
@@ -53,7 +53,7 @@ const Login = () => {
               htmlType="submit"
               className='full-width'
             >
-              Sign in
+              Sign up
             </EcButton>
           </Form.Item>
 
@@ -63,4 +63,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default Register
