@@ -6,15 +6,17 @@ import {
   Typography,
 } from "antd"
 import { LockOutlined, MailOutlined } from '@ant-design/icons';
-import { LoginFormFields } from "../../../interface";
+import { LoginFormFields, LoginProps } from "../../../interface";
 import { EcButton } from "../../atom";
 import { useNavigate } from "react-router-dom";
 import { APP_ROUTES } from "../../../constant";
+import { useAuth } from "../../../context/AuthContext";
 
 const { Text, Title } = Typography
 
-const Login = () => {
+const Login = ({ onFinish }: LoginProps) => {
   const navigate = useNavigate()
+  const { isLoading } = useAuth()
 
   const onNavigateToHome = () => {
     navigate(APP_ROUTES.ROOT)
@@ -26,7 +28,7 @@ const Login = () => {
       </Flex>
       <Flex justify="center"><Text disabled>Sign in to your account</Text></Flex><br /><br />
 
-      <Form onFinish={() => {}}>
+      <Form onFinish={onFinish}>
         <Space direction="vertical" className="full-width">
           <Form.Item<LoginFormFields>
             name="username"
@@ -59,6 +61,7 @@ const Login = () => {
               size='large'
               htmlType="submit"
               className='full-width'
+              loading={isLoading}
             >
               Sign in
             </EcButton>

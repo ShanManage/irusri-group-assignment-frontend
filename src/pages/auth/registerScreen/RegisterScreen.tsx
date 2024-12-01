@@ -2,21 +2,20 @@ import { Flex, Card, Typography } from 'antd'
 import { APP_ROUTES } from '../../../constant'
 import { useNavigate } from 'react-router-dom'
 import { Register } from '../../../components/auth'
-import { LoginFormFields } from '../../../interface'
+import { RegisterFormFields } from '../../../interface'
 import { useAuth } from '../../../context/AuthContext'
 import { useNotify } from '../../../hooks'
 
 const { Text, Link } = Typography
 
 const RegisterScreen = () => {
-  const { notify, contextHolder } = useNotify();
-
-  const navigate = useNavigate()
   const { signUp } = useAuth()
+  const { notify, contextHolder } = useNotify();
+  const navigate = useNavigate()
 
   const onNavigateToLogin = () => navigate(APP_ROUTES.LOGIN)
 
-  const onFinish = async (values: LoginFormFields) => {
+  const onFinish = async (values: RegisterFormFields) => {
     try {
       const res = await signUp(values)
       if (res.success) {

@@ -34,3 +34,7 @@ export interface AuthResponseType {
 export interface RegisterProps {
   onFinish: (values: RegisterFormFields) => void
 }
+
+export interface LoginProps {
+  onFinish: (values: RegisterFormFields) => void
+}
