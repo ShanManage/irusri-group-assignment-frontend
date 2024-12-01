@@ -8,14 +8,21 @@ import {
 import { LockOutlined, MailOutlined } from '@ant-design/icons';
 import { LoginFormFields } from "../../../interface";
 import { EcButton } from "../../atom";
+import { useNavigate } from "react-router-dom";
+import { APP_ROUTES } from "../../../constant";
 
 const { Text, Title } = Typography
 
 const Login = () => {
+  const navigate = useNavigate()
+
+  const onNavigateToHome = () => {
+    navigate(APP_ROUTES.ROOT)
+  }
   return (
     <>
       <Flex justify="center">
-        <Title className='zero-margin' type='warning'>ECOM-SHOP</Title>
+        <Title className='zero-margin cursor-pointer' type='warning' onClick={onNavigateToHome}>ECOM-SHOP</Title>
       </Flex>
       <Flex justify="center"><Text disabled>Sign in to your account</Text></Flex><br /><br />
 
