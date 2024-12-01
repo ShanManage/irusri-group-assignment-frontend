@@ -1,0 +1,52 @@
+.card {
+  
+  .minus {
+    width: 50px;
+    border-top-left-radius: var(--border-radius) !important;
+    border-bottom-left-radius: var(--border-radius) !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+
+  .plus {
+    width: 50px;
+    border-top-right-radius: var(--border-radius) !important;
+    border-bottom-right-radius: var(--border-radius) !important;
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+  }
+  
+  :global {
+    .ant-card-body {
+      span, h2 {
+        margin: 0 !important;
+      }
+    }
+    .ant-image {
+      overflow: hidden;
+      border-radius: var(--border-radius);
+      border: 1px solid var(--primary-color-lighter);
+
+      img {
+        object-fit: cover;
+        border-radius: var(--border-radius);
+        transition: transform 0.3s ease;
+
+        &:hover {
+          transform: scale(1.05);
+        }
+      }
+    }
+
+    .ant-input {
+      border-radius: 0 !important;
+      text-align: center !important;
+
+      &:disabled {
+        border-color: var(--primary-color) !important;
+        color: black !important;
+        font-weight: bold !important;
+      }
+    }
+  }
+}

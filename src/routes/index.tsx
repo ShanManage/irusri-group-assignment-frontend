@@ -6,6 +6,7 @@ import { APP_ROUTES } from '../constant'
 import {
   HomeScreen,
   LoginScreen,
+  MyCartScreen,
   RegisterScreen,
 } from '../pages'
 import AppLayout from '../components/appLayout/AppLayout'
@@ -17,6 +18,7 @@ const router = createBrowserRouter(
       <Route path={APP_ROUTES.REGISTER} element={<RegisterScreen />} />
       <Route path={APP_ROUTES.ROOT} element={<AppLayout />}>
         <Route path={APP_ROUTES.ROOT} element={<HomeScreen />} />
+        <Route path={APP_ROUTES.MY_CART} element={<MyCartScreen />} />
       </Route>
       {/* <Route path={APP_ROUTES.DASHBOARD} element={<Dashboard />} /> */}
     </Route>
