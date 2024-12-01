@@ -1,4 +1,3 @@
-import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import { ConfigProvider, ThemeConfig } from 'antd'
@@ -10,11 +9,9 @@ import { AuthProvider } from './context/AuthContext.tsx'
 const config: ThemeConfig = {}
 
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <AuthProvider>
-      <ConfigProvider theme={config}>
-        <App />
-      </ConfigProvider>
-    </AuthProvider>
-  </StrictMode>,
+  <AuthProvider>
+    <ConfigProvider theme={config}>
+      <App />
+    </ConfigProvider>
+  </AuthProvider>,
 )

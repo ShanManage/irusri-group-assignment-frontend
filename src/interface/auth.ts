@@ -1,8 +1,8 @@
 import { ReactNode } from "react";
 
 export interface AuthContextType {
-  authenticate: (props: LoginFormFields) => Promise<boolean>
-  signUp: (props: RegisterFormFields) => Promise<boolean>
+  authenticate: (props: LoginFormFields) => Promise<AuthResponseType>
+  signUp: (props: RegisterFormFields) => Promise<AuthResponseType>
   signOut: () => void
   isLoading: boolean
   currentUser: AuthUser | null;
@@ -24,4 +24,17 @@ export interface LoginFormFields {
 export interface RegisterFormFields {
   username: string
   password: string
+}
+
+export interface AuthResponseType {
+  success: boolean
+  message: string
+}
+
+export interface RegisterProps {
+  onFinish: (values: RegisterFormFields) => void
+}
+
+export interface LoginProps {
+  onFinish: (values: RegisterFormFields) => void
 }

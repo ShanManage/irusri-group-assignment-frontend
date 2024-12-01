@@ -4,22 +4,51 @@ import {
   MenuOutlined,
   ShoppingCartOutlined,
   SearchOutlined,
+  UserOutlined,
 } from '@ant-design/icons';
-import { Drawer, Flex, List, Typography } from 'antd';
+import { Drawer, Dropdown, Flex, List, MenuProps, Typography } from 'antd';
 import { EcIcon, EcInput } from '../../atom';
+import { useAuth } from '../../../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import { APP_ROUTES } from '../../../constant';
 
 const { Text, Title } = Typography
 
 const EcHeader: React.FC = () => {
+  const navigate = useNavigate()
+  const { currentUser, signOut } = useAuth()
   const [drawerVisible, setDrawerVisible] = useState(false);
 
-  const toggleDrawer = () => {
-    setDrawerVisible(!drawerVisible);
-  };
+  const toggleDrawer = () => setDrawerVisible(!drawerVisible);
 
-  const data = [
-    { text: "My Cart" },
+  const onNavigateToLogin = () => navigate(APP_ROUTES.LOGIN);
+
+  const drawerData = [
+    { key: "cart", label: "My Cart", onClick: () => {} },
   ];
+
+  const accountMenu: MenuProps = {
+    items: currentUser
+      ? [
+          {
+            key: "username",
+            label: <Text strong>{currentUser.username}</Text>,
+            disabled: true,
+          },
+          {
+            key: "logout",
+            label: "Logout",
+            onClick: signOut,
+          },
+        ]
+      : [
+          {
+            key: "signin",
+            label: "Sign In",
+            onClick: onNavigateToLogin,
+          },
+        ],
+  };
 
   return (
     <header className={`${styles.header} container`}>
@@ -41,6 +70,9 @@ const EcHeader: React.FC = () => {
       {/* Desktop Icons */}
       <Flex justify='space-between' align='center' gap={20} className={styles.desktopIcons}>
         <EcIcon icon={ShoppingCartOutlined} text="My Cart" onClick={() => { }} count={3} />
+        <Dropdown menu={accountMenu} trigger={["click"]}>
+          <EcIcon icon={UserOutlined} text="My Account" onClick={() => {}} />
+        </Dropdown>
       </Flex>
 
       {/* Fullscreen Drawer for Mobile */}
@@ -56,10 +88,10 @@ const EcHeader: React.FC = () => {
         width="100%"
       >
         <List
-          dataSource={data}
+          dataSource={drawerData}
           renderItem={item => (
-            <List.Item onClick={() => { }}>
-              <Text strong>{item.text}</Text>
+            <List.Item onClick={item.onClick}>
+              <Text strong>{item.label}</Text>
             </List.Item>
           )}
         />

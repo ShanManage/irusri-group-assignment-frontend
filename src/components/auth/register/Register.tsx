@@ -6,20 +6,29 @@ import {
   Typography,
 } from "antd"
 import { LockOutlined, MailOutlined } from '@ant-design/icons';
-import { RegisterFormFields } from "../../../interface";
+import { RegisterFormFields, RegisterProps } from "../../../interface";
 import { EcButton } from "../../atom";
+import { APP_ROUTES } from "../../../constant";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../../context/AuthContext";
 
 const { Text, Title } = Typography
 
-const Register = () => {
+const Register = ({ onFinish }: RegisterProps) => {
+  const navigate = useNavigate()
+  const { isLoading } = useAuth()
+
+  const onNavigateToHome = () => {
+    navigate(APP_ROUTES.ROOT)
+  }
   return (
     <>
       <Flex justify="center">
-        <Title className='zero-margin' type='warning'>ECOM-SHOP</Title>
+        <Title className='zero-margin cursor-pointer' type='warning' onClick={onNavigateToHome}>ECOM-SHOP</Title>
       </Flex>
       <Flex justify="center"><Text disabled>Sign up to your account</Text></Flex><br /><br />
 
-      <Form onFinish={() => {}}>
+      <Form onFinish={onFinish}>
         <Space direction="vertical" className="full-width">
           <Form.Item<RegisterFormFields>
             name="username"
@@ -52,6 +61,7 @@ const Register = () => {
               size='large'
               htmlType="submit"
               className='full-width'
+              loading={isLoading}
             >
               Sign up
             </EcButton>
