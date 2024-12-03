@@ -11,11 +11,13 @@ import { EcIcon, EcInput } from '../../atom';
 import { useAuth } from '../../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { APP_ROUTES } from '../../../constant';
+import { useCart } from '../../../context/CartContext';
 
 const { Text, Title } = Typography
 
 const EcHeader: React.FC = () => {
   const navigate = useNavigate()
+  const { cartItems } = useCart();
   const { currentUser, signOut } = useAuth()
   const [drawerVisible, setDrawerVisible] = useState(false);
 
@@ -73,7 +75,7 @@ const EcHeader: React.FC = () => {
 
       {/* Desktop Icons */}
       <Flex justify='space-between' align='center' gap={20} className={styles.desktopIcons}>
-        <EcIcon icon={ShoppingCartOutlined} text="My Cart" onClick={onNavigateToMyCart} count={3} />
+        <EcIcon icon={ShoppingCartOutlined} text="My Cart" onClick={onNavigateToMyCart} count={cartItems.length} />
         <Dropdown menu={accountMenu} trigger={["click"]}>
           <EcIcon icon={UserOutlined} text="My Account" onClick={() => {}} />
         </Dropdown>

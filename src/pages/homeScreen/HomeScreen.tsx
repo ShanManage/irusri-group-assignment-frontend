@@ -2,8 +2,10 @@ import { Col, Divider, Flex, Pagination, Row } from "antd"
 import { APP_PAGINATE_CONFIG, DUMMY_PRODUCT_LIST } from "../../constant"
 import { EcProductCard } from "../../components/composite"
 import { useState } from "react";
+import { useCart } from "../../context/CartContext";
 
 const HomeScreen = () => {
+  const { addItem } = useCart();
   const [page, setPage] = useState(APP_PAGINATE_CONFIG.DEFAULT_PAGE);
 
   const handlePageChange = (page: number) => {
@@ -32,7 +34,7 @@ const HomeScreen = () => {
               subtitle={product.subtitle}
               price={product.price}
               image={product.image}
-              onAddToCart={() => { }}
+              onAddToCart={() => addItem({id: index + 1, ...product, quantity: 1})}
             />
           </Col>
         ))}

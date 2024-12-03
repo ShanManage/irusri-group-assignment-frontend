@@ -5,13 +5,16 @@ import './styles/variables.scss'
 import './styles/ant-overrides.css'
 import './styles/main.scss'
 import { AuthProvider } from './context/AuthContext.tsx'
+import { CartProvider } from './context/CartContext.tsx'
 
 const config: ThemeConfig = {}
 
 createRoot(document.getElementById('root')!).render(
   <AuthProvider>
-    <ConfigProvider theme={config}>
-      <App />
-    </ConfigProvider>
+    <CartProvider>
+      <ConfigProvider theme={config}>
+        <App />
+      </ConfigProvider>
+    </CartProvider>
   </AuthProvider>,
 )

@@ -4,19 +4,25 @@ import { EcButton } from "../../atom"
 import { MinusOutlined, PlusOutlined, DeleteOutlined } from '@ant-design/icons';
 
 export interface EcCartItemCardProps {
+  id: number
   title: string;
   subtitle: string;
   price: number;
   image: string;
   quantity: number;
+  onUpdate: (id: number, quantity: number) => void
+  onRemove: (id: number) => void
 }
 
 const EcCartItemCard = ({
+  id,
   title,
   subtitle,
   price,
   image,
-  quantity
+  quantity,
+  onUpdate,
+  onRemove
 }: EcCartItemCardProps) => {
   return (
     <Card
@@ -43,9 +49,19 @@ const EcCartItemCard = ({
 
         <Flex vertical align="left" justify="space-between" style={{ width: 200 }}>
           <Space size={0}>
-            <EcButton type="secondary" icon={<MinusOutlined />} className={styles.minus} />
+            <EcButton
+              type="secondary"
+              icon={<MinusOutlined />}
+              className={styles.minus}
+              onClick={() => onUpdate(id, quantity - 1)}
+            />
             <Input disabled value={quantity}/>
-            <EcButton type="secondary" icon={<PlusOutlined />} className={styles.plus} />
+            <EcButton
+              type="secondary"
+              icon={<PlusOutlined />}
+              className={styles.plus}
+              onClick={() => onUpdate(id, quantity + 1)}
+            />
           </Space>
           <Divider />
           <Flex justify="space-between" align="center">
@@ -57,7 +73,7 @@ const EcCartItemCard = ({
             </Typography.Title>
           </Flex>
           <Divider />
-          <EcButton type="primary" icon={<DeleteOutlined />}>remove</EcButton>
+          <EcButton type="primary" icon={<DeleteOutlined />} onClick={() => onRemove(id)}>remove</EcButton>
         </Flex>
       </Flex>
     </Card>
