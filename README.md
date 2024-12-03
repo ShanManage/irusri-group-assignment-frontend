@@ -1,50 +1,58 @@
-# React + TypeScript + Vite
+# IG-ASSIGNMENT-FRONTEND
+This repository contains the source code relates to IG take home assignment (Front-End). 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a [React.js](https://react.dev/) project bootstrapped with [`create vite`](https://vitejs.dev/guide/).
 
-Currently, two official plugins are available:
+## Application structure
+Source of the application is structured according to the following structure.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- `src` - Root directory which contains project source
+    - `assets` - Static assets like images
+    - `components` - components of the application
+      - `atom` - atomic level reusable components
+      - `composite` - reusable composite level components
+    - `constant` - constants of the application
+    - `context` - Contexts for state management
+    - `hooks` - Custom hooks
+    - `interface` - interfaces of the application
+    - `pages` - pages of the application which combines components
+    - `routes` - Application routing configurations
+    - `styles` - global/reusable styles of the application
+- `.eslintrc.json` - ES Lint configurations
+- `.gitignore` - Specifies which files and directories should be ignored by Git
+- `package.json` - NPM packages and configuration file.
 
-## Expanding the ESLint configuration
+## Setting up the development environment.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+#### Recommended IDE
+Visual Studio Code is recommended for local development.
 
-- Configure the top-level `parserOptions` property like this:
+#### Install dependencies
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+> [!IMPORTANT]
+> node version 18.x.x has been used and tested in the dev environment. Not encourage to use any lower version.
+
+
+Execute below NPM script in the root directory to install required dependencies.
+
+```bash
+npm install
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+#### Environment configuration
+Read **.env.example** to find all the required env configurations. Strongly recommended to update the .env.example file if there is any change added to env configurations.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## Starting the development server
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+> [!IMPORTANT]
+> Prerequisite for the development environment should be configured properly before apply any changes to the application source code. (Refer the **"Setting up the development environment"** section. )
+
+Run the development server with:
+
+```bash
+npm run dev
 ```
+
+Open [http://localhost:5173](http://localhost:5173) with your browser to see the result.
+
+You can start editing the source code. The page auto-updates as you edit the file.
