@@ -19,8 +19,9 @@ const RegisterScreen = () => {
     try {
       const res = await signUp(values)
       if (res.success) {
-        onNavigateToLogin()
-        
+        setTimeout(() => {
+          onNavigateToLogin()
+        }, 1000);
         notify(res.message, "", "success");
       }
     } catch (error) {

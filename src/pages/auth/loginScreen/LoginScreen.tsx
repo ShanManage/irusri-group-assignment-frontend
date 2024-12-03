@@ -21,8 +21,9 @@ const LoginScreen = () => {
     try {
       const res = await authenticate(values)
       if (res.success) {
-        onNavigateToHome()
-        
+        setTimeout(() => {
+          onNavigateToHome();
+        }, 1000);
         notify(res.message, "", "success");
       }
     } catch (error) {
