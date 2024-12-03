@@ -10,6 +10,7 @@ import {
   RegisterScreen,
 } from '../pages'
 import AppLayout from '../components/appLayout/AppLayout'
+import PrivateRoute from './PrivateRoute'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -18,9 +19,8 @@ const router = createBrowserRouter(
       <Route path={APP_ROUTES.REGISTER} element={<RegisterScreen />} />
       <Route path={APP_ROUTES.ROOT} element={<AppLayout />}>
         <Route path={APP_ROUTES.ROOT} element={<HomeScreen />} />
-        <Route path={APP_ROUTES.MY_CART} element={<MyCartScreen />} />
+        <Route path={APP_ROUTES.MY_CART} element={<PrivateRoute><MyCartScreen /></PrivateRoute>} />
       </Route>
-      {/* <Route path={APP_ROUTES.DASHBOARD} element={<Dashboard />} /> */}
     </Route>
   )
 )

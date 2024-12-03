@@ -34,7 +34,7 @@ const HomeScreen = () => {
               subtitle={product.subtitle}
               price={product.price}
               image={product.image}
-              onAddToCart={() => addItem({id: index + 1, ...product, quantity: 1})}
+              onAddToCart={() => addItem({...product, quantity: 1})}
             />
           </Col>
         ))}

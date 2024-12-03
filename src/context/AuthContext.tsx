@@ -66,7 +66,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
           setIsLoading(false);
           resolve({
             success: true,
-            message: "Login successful",
+            message: "Signin successful",
           });
         } else {
           setIsLoading(false);
