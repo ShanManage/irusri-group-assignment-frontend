@@ -1,0 +1,50 @@
+@import './variables.scss';
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: #f4f5fa;
+  overflow-y: scroll;
+}
+
+#root {
+  width: 100%;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.zero-margin {
+  margin: 0 !important;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.container {
+  padding-left: 400px;
+  padding-right: 400px;
+}
+
+@media (max-width: $xl) {
+  .container {
+    padding-left: 200px;
+    padding-right: 200px;
+  }
+}
+
+@media (max-width: $m) {
+  .container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}

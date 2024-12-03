@@ -1,0 +1,65 @@
+/* Ant Overrides */
+/* This file contains custom CSS rules to override default Ant Design styles across the application.  */
+
+.ant-btn,
+.ant-input,
+.ant-input-affix-wrapper,
+.ant-input-number-input,
+input {
+  border-radius: var(--border-radius) !important; 
+}
+
+/* Button */
+.ant-btn {
+  background-color: transparent !important;
+  color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+}
+
+.ant-btn:hover {
+  border-color: var(--primary-color-lighter) !important;
+}
+
+.ant-btn-primary {
+  background-color: var(--primary-color) !important;
+  color: white !important;
+  border-color: var(--primary-color) !important;
+}
+
+.ant-btn-primary:hover,
+.ant-btn-primary:focus {
+  background-color: var(--primary-color-lighter) !important;
+  color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+}
+
+/* FLOAT BUTTON */
+.ant-float-btn-primary,
+.ant-float-btn-body {
+  background-color: var(--primary-color) !important;
+  color: white !important;
+  border-color: var(--primary-color) !important;
+}
+
+.ant-float-btn-primary:hover,
+.ant-float-btn-primary:focus,
+.ant-float-btn-body:hover,
+.ant-float-btn-body:focus {
+  background-color: var(--primary-color-lighter) !important;
+  color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+}
+
+
+/* INPUT FIELDS OVERRIDES */
+.ant-input:hover,
+.ant-input:focus,
+.ant-input-affix-wrapper:hover,
+.ant-input-affix-wrapper:focus,
+.ant-input-affix-wrapper-focused {
+  border-color: var(--primary-color) !important;
+}
+
+.ant-input-prefix {
+  color: #c0c3c6 !important;
+}
