@@ -1,7 +1,7 @@
 import { Col, Divider, Flex, Modal, Pagination, Row, Typography } from "antd"
 import { APP_PAGINATE_CONFIG, DUMMY_PRODUCT_LIST } from "../../constant"
 import { EcProductCard } from "../../components/composite"
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useCart } from "../../context/CartContext";
 import { Product } from "../../interface/app";
 import { useAuth } from "../../context/AuthContext";
@@ -23,9 +23,11 @@ const HomeScreen = () => {
     setPage(page);
   };
 
-  const startIndex = (page - 1) * APP_PAGINATE_CONFIG.DEFAULT_ITEMS_PER_PAGE;
-  const endIndex = startIndex + APP_PAGINATE_CONFIG.DEFAULT_ITEMS_PER_PAGE;
-  const paginatedProducts = DUMMY_PRODUCT_LIST.slice(startIndex, endIndex);
+  const paginatedProducts = useMemo(() => {
+    const startIndex = (page - 1) * APP_PAGINATE_CONFIG.DEFAULT_ITEMS_PER_PAGE;
+    const endIndex = startIndex + APP_PAGINATE_CONFIG.DEFAULT_ITEMS_PER_PAGE;
+    return DUMMY_PRODUCT_LIST.slice(startIndex, endIndex);
+  }, [page]);
 
   const handleAddToCart = (product: Product) => {
     if (!currentUser) {
@@ -41,10 +43,7 @@ const HomeScreen = () => {
       const res = await authenticate(values);
       if (res.success) {
         setIsModalOpen(false);
-        if (pendingProduct) {
-          addItem({ ...pendingProduct, quantity: 1 });
-          setPendingProduct(null);
-        }
+        notify(res.message, "", "success");
       }
     } catch (error) {
       notify(
@@ -54,6 +53,13 @@ const HomeScreen = () => {
       );
     }
   };
+
+  useEffect(() => {
+    if (currentUser && pendingProduct) {
+      addItem({ ...pendingProduct, quantity: 1 });
+      setPendingProduct(null);
+    }
+  }, [currentUser, pendingProduct])
 
   return (
     <>
