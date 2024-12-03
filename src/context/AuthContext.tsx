@@ -24,10 +24,7 @@ const AuthContext = createContext<AuthContextType>({
 
 const AuthProvider = ({ children }: AuthProviderProps) => {
   const [isLoading, setIsLoading] = useState(false)
-  const [users, setUsers] = useState<AuthUser[]>([
-    { id: 1, username: "shan@gmail.com", password: 'shan' },
-    { id: 2, username: "theja@gmail.com", password: 'shan' },
-  ]);
+  const [users, setUsers] = useState<AuthUser[]>([]);
   const [currentUser, setCurrentUser] = useState<AuthUser | null>(null);
 
   const signUp = ({ username, password }: RegisterFormFields): Promise<AuthResponseType> => {
