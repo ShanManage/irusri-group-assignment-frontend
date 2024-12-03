@@ -1,26 +1,6 @@
 import React, { createContext, useContext, useReducer } from "react";
-import { Product } from "../interface";
 import { useAuth } from "../context/AuthContext";
-
-type CartItem = Product & {
-  quantity: number;
-};
-
-type CartState = {
-  userCart: { [userId: string]: CartItem[] };
-};
-
-type CartAction =
-  | { type: "ADD_ITEM"; payload: { userId: number; item: CartItem } }
-  | { type: "REMOVE_ITEM"; payload: { userId: number; id: number } }
-  | { type: "UPDATE_QUANTITY"; payload: { userId: number; id: number; quantity: number } };
-
-type CartContextType = {
-  cartItems: CartItem[];
-  addItem: (item: CartItem) => void;
-  removeItem: (id: number) => void;
-  updateQuantity: (id: number, quantity: number) => void;
-};
+import { CartContextType, CartState, CartAction, CartItem } from "../interface";
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
