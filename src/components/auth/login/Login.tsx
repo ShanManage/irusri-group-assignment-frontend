@@ -18,9 +18,7 @@ const Login = ({ onFinish }: LoginProps) => {
   const navigate = useNavigate()
   const { isLoading } = useAuth()
 
-  const onNavigateToHome = () => {
-    navigate(APP_ROUTES.ROOT)
-  }
+  const onNavigateToHome = () => navigate(APP_ROUTES.ROOT)
   return (
     <>
       <Flex justify="center">

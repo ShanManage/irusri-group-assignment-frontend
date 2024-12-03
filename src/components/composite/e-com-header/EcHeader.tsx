@@ -11,17 +11,23 @@ import { EcIcon, EcInput } from '../../atom';
 import { useAuth } from '../../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { APP_ROUTES } from '../../../constant';
+import { useCart } from '../../../context/CartContext';
 
 const { Text, Title } = Typography
 
 const EcHeader: React.FC = () => {
   const navigate = useNavigate()
+  const { cartItems } = useCart();
   const { currentUser, signOut } = useAuth()
   const [drawerVisible, setDrawerVisible] = useState(false);
 
   const toggleDrawer = () => setDrawerVisible(!drawerVisible);
 
   const onNavigateToLogin = () => navigate(APP_ROUTES.LOGIN);
+
+  const onNavigateToMyCart= () => navigate(APP_ROUTES.MY_CART);
+
+  const onNavigateToHome = () => navigate(APP_ROUTES.ROOT)
 
   const drawerData = [
     { key: "cart", label: "My Cart", onClick: () => {} },
@@ -58,7 +64,7 @@ const EcHeader: React.FC = () => {
       </div>
 
       {/* Logo Centered on Mobile */}
-      <Title className='zero-margin' type='warning'>ECOM-SHOP</Title>
+      <Title className='zero-margin cursor-pointer' type='warning' onClick={onNavigateToHome}>ECOM-SHOP</Title>
       <div className={styles.mobile}></div>
 
 
@@ -69,7 +75,7 @@ const EcHeader: React.FC = () => {
 
       {/* Desktop Icons */}
       <Flex justify='space-between' align='center' gap={20} className={styles.desktopIcons}>
-        <EcIcon icon={ShoppingCartOutlined} text="My Cart" onClick={() => { }} count={3} />
+        <EcIcon icon={ShoppingCartOutlined} text="My Cart" onClick={onNavigateToMyCart} count={cartItems.length} />
         <Dropdown menu={accountMenu} trigger={["click"]}>
           <EcIcon icon={UserOutlined} text="My Account" onClick={() => {}} />
         </Dropdown>
