@@ -69,7 +69,7 @@ const EcCartItemCard = ({
               {'TOTAL : '}
             </Typography.Text>
             <Typography.Title level={2} ellipsis>
-              ${price * quantity}
+              ${(price * quantity).toFixed(2)}
             </Typography.Title>
           </Flex>
           <Divider />
