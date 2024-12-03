@@ -1,13 +1,9 @@
 import React, { createContext, useContext, useReducer } from 'react';
+import { Product } from '../interface';
 
-type CartItem = {
-  id: number;
-  title: string;
-  subtitle: string;
-  price: number;
-  image: string;
+type CartItem = Product & {
   quantity: number;
-};
+}
 
 type CartState = {
   items: CartItem[];

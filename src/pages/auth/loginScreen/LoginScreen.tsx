@@ -37,19 +37,19 @@ const LoginScreen = () => {
   return (
     <>
       {contextHolder}
-    <Flex justify="center" align='center'>
-      <Card styles={{ body: { padding: '60px 60px', width: '400px' } }}>
-        <Login onFinish={onFinish} />
-        <Flex justify="center">
-          <Text>
-            Don't you have an account?{' '}
-            <Link onClick={onNavigateToRegister}>
-              Sign up
-            </Link>
-          </Text>
-        </Flex>
-      </Card>
-    </Flex>
+      <Flex justify="center" align='center'>
+        <Card styles={{ body: { padding: '60px 60px', width: '400px' } }}>
+          <Login onFinish={onFinish} />
+          <Flex justify="center">
+            <Text>
+              Don't you have an account?{' '}
+              <Link onClick={onNavigateToRegister}>
+                Sign up
+              </Link>
+            </Text>
+          </Flex>
+        </Card>
+      </Flex>
     </>
   )
 }
