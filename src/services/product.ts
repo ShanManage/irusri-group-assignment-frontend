@@ -4,7 +4,8 @@ import { GetAllProductsResponse, ProductQueryParams } from "../interface";
 const getAllProducts = async ({
   page,
   itemsPerPage,
-  searchKeyWord = ""
+  searchKeyWord = "",
+  selectedCategory = ""
 }: ProductQueryParams): Promise<GetAllProductsResponse> => {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -13,6 +14,12 @@ const getAllProducts = async ({
       if (searchKeyWord) {
         filteredProducts = filteredProducts.filter((product) =>
           product.title.toLowerCase().includes(searchKeyWord.toLowerCase())
+        );
+      }
+
+      if (selectedCategory) {
+        filteredProducts = filteredProducts.filter((product) =>
+          product.subtitle.toLowerCase() === selectedCategory.toLowerCase()
         );
       }
 

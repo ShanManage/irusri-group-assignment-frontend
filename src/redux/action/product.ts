@@ -7,9 +7,9 @@ export const getAllProducts = createAsyncThunk(
   async (_, { getState }) => {
     const state = getState() as RootState;
 
-    const { page, searchKeyWord, itemsPerPage } = state.product
+    const { page, searchKeyWord, itemsPerPage, selectedCategory } = state.product
     
-    const products = await productService.getAllProducts({page, searchKeyWord, itemsPerPage})
+    const products = await productService.getAllProducts({page, searchKeyWord, itemsPerPage, selectedCategory})
     return products
   }
 )
