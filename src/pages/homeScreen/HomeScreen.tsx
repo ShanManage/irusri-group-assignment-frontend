@@ -1,34 +1,41 @@
-import { Col, Divider, Flex, Modal, Pagination, Row, Typography } from "antd"
-import { APP_PAGINATE_CONFIG, DUMMY_PRODUCT_LIST } from "../../constant"
+import { Col, Divider, Empty, Flex, Modal, Pagination, Row, Skeleton, Typography } from "antd"
+import { APP_PAGINATE_CONFIG } from "../../constant"
 import { EcProductCard } from "../../components/composite"
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useCart } from "../../context/CartContext";
-import { Product } from "../../interface/app";
+import { Product } from "../../interface";
 import { useAuth } from "../../context/AuthContext";
 import { LoginFormFields, RegisterFormFields } from "../../interface";
 import { useNotify } from "../../hooks";
 import { Login, Register } from "../../components/auth";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../redux";
+import { productAction } from "../../redux/action/product";
+import { setCurrentPage } from "../../redux/slice/product";
 
 const { Text, Link } = Typography;
 
 const HomeScreen = () => {
+  const dispatch = useDispatch<AppDispatch>()
   const { addItem } = useCart();
   const { notify, contextHolder } = useNotify();
   const { authenticate, currentUser, signUp } = useAuth()
-  const [page, setPage] = useState(APP_PAGINATE_CONFIG.DEFAULT_PAGE);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
   const [pendingProduct, setPendingProduct] = useState<Product | null>(null);
 
-  const handlePageChange = (page: number) => {
-    setPage(page);
-  };
+  const productResponse = useSelector((state: RootState) => state.product.allProducts)
+  const isLoading = useSelector((state: RootState) => state.product.isLoading)
+  const page = useSelector((state: RootState) => state.product.page)
+  const searchKeyWord = useSelector((state: RootState) => state.product.searchKeyWord)
 
-  const paginatedProducts = useMemo(() => {
-    const startIndex = (page - 1) * APP_PAGINATE_CONFIG.DEFAULT_ITEMS_PER_PAGE;
-    const endIndex = startIndex + APP_PAGINATE_CONFIG.DEFAULT_ITEMS_PER_PAGE;
-    return DUMMY_PRODUCT_LIST.slice(startIndex, endIndex);
-  }, [page]);
+  useEffect(() => {
+    dispatch(productAction.getAllProducts())
+  }, [page, searchKeyWord])
+
+  const handlePageChange = (page: number) => {
+    dispatch(setCurrentPage(page));
+  };
 
   const handleAddToCart = (product: Product) => {
     if (!currentUser) {
@@ -80,13 +87,32 @@ const HomeScreen = () => {
     }
   }, [currentUser, pendingProduct])
 
+  const renderSkeleton = () => (
+    <div className="container">
+      <Row gutter={[16, 16]} justify="center">
+        {Array.from({ length: 8 }).map((_, index) => (
+          <Col key={index} xs={24} sm={12} md={8} lg={6}>
+            <div style={{ padding: "16px", textAlign: "left" }}>
+              <Skeleton.Image active style={{ width: "200px", height: "200px" }} />
+              <Skeleton active paragraph={{ rows: 2 }} />
+            </div>
+          </Col>
+        ))}
+      </Row>
+    </div>
+  );
+
+  if (isLoading) return renderSkeleton()
+
+  if (productResponse.data.length === 0) return <Empty />
+
   return (
     <>
       {contextHolder}
       <div className="container">
         <Divider />
         <Row gutter={[16, 16]} justify="center">
-          {paginatedProducts.map((product, index) => (
+          {productResponse.data.map((product, index) => (
             <Col
               key={index}
               xs={24}
@@ -109,7 +135,7 @@ const HomeScreen = () => {
           <Pagination
             current={page}
             pageSize={APP_PAGINATE_CONFIG.DEFAULT_ITEMS_PER_PAGE}
-            total={DUMMY_PRODUCT_LIST.length}
+            total={productResponse.count}
             onChange={handlePageChange}
             showSizeChanger={false}
           />
@@ -125,7 +151,7 @@ const HomeScreen = () => {
           {!isLogin && <Register onFinish={onHandleRegister} />}
           <Flex justify="center">
             <Text>
-            {isLogin ? "Don't" : "Do"} you have an account?{' '}
+              {isLogin ? "Don't" : "Do"} you have an account?{' '}
               <Link onClick={() => setIsLogin(!isLogin)}>
                 {isLogin ? "Sign up" : "Sign in"}
               </Link>
