@@ -5,18 +5,19 @@ import { useEffect, useMemo, useState } from "react";
 import { useCart } from "../../context/CartContext";
 import { Product } from "../../interface/app";
 import { useAuth } from "../../context/AuthContext";
-import { LoginFormFields } from "../../interface";
+import { LoginFormFields, RegisterFormFields } from "../../interface";
 import { useNotify } from "../../hooks";
-import { Login } from "../../components/auth";
+import { Login, Register } from "../../components/auth";
 
-const { Text } = Typography;
+const { Text, Link } = Typography;
 
 const HomeScreen = () => {
   const { addItem } = useCart();
   const { notify, contextHolder } = useNotify();
-  const { authenticate, currentUser } = useAuth()
+  const { authenticate, currentUser, signUp } = useAuth()
   const [page, setPage] = useState(APP_PAGINATE_CONFIG.DEFAULT_PAGE);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
   const [pendingProduct, setPendingProduct] = useState<Product | null>(null);
 
   const handlePageChange = (page: number) => {
@@ -38,7 +39,7 @@ const HomeScreen = () => {
     }
   };
 
-  const handleLoginSuccess = async (values: LoginFormFields) => {
+  const onHandleLogin = async (values: LoginFormFields) => {
     try {
       const res = await authenticate(values);
       if (res.success) {
@@ -48,6 +49,22 @@ const HomeScreen = () => {
     } catch (error) {
       notify(
         "Signin failed",
+        (error as { message: string }).message || "An unexpected error occurred.",
+        "error"
+      );
+    }
+  };
+
+  const onHandleRegister = async (values: RegisterFormFields) => {
+    try {
+      const res = await signUp(values);
+      if (res.success) {
+        setIsModalOpen(false);
+        notify(res.message, "", "success");
+      }
+    } catch (error) {
+      notify(
+        "SignUP failed",
         (error as { message: string }).message || "An unexpected error occurred.",
         "error"
       );
@@ -102,9 +119,15 @@ const HomeScreen = () => {
           onCancel={() => setIsModalOpen(false)}
           footer={null}
         >
-          <Login onFinish={handleLoginSuccess} />
+          {isLogin && <Login onFinish={onHandleLogin} />}
+          {!isLogin && <Register onFinish={onHandleRegister} />}
           <Flex justify="center">
-            <Text disabled>Note: Assume user already signup to the system</Text>
+            <Text>
+            {isLogin ? "Don't" : "Do"} you have an account?{' '}
+              <Link onClick={() => setIsLogin(!isLogin)}>
+                {isLogin ? "Sign up" : "Sign in"}
+              </Link>
+            </Text>
           </Flex>
         </Modal>
       </div>
