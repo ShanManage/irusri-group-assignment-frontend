@@ -28,10 +28,11 @@ const HomeScreen = () => {
   const isLoading = useSelector((state: RootState) => state.product.isLoading)
   const page = useSelector((state: RootState) => state.product.page)
   const searchKeyWord = useSelector((state: RootState) => state.product.searchKeyWord)
+  const selectedCategory = useSelector((state: RootState) => state.product.selectedCategory)
 
   useEffect(() => {
     dispatch(productAction.getAllProducts())
-  }, [page, searchKeyWord])
+  }, [page, searchKeyWord, selectedCategory])
 
   const handlePageChange = (page: number) => {
     dispatch(setCurrentPage(page));
