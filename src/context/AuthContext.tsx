@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
 import {
   AuthContextType,
   AuthProviderProps,
@@ -7,6 +7,7 @@ import {
   LoginFormFields,
   RegisterFormFields,
 } from '../interface'
+import { LOCAL_STORAGE_KEYS } from '../constant'
 
 const AuthContext = createContext<AuthContextType>({
   authenticate: async () => ({
@@ -24,9 +25,23 @@ const AuthContext = createContext<AuthContextType>({
 
 const AuthProvider = ({ children }: AuthProviderProps) => {
   const [isLoading, setIsLoading] = useState(false)
-  const [users, setUsers] = useState<AuthUser[]>([]);
-  const [currentUser, setCurrentUser] = useState<AuthUser | null>(null);
+  const [users, setUsers] = useState<AuthUser[]>(() => {
+    const storedUsers = localStorage.getItem(LOCAL_STORAGE_KEYS.AUTH_USERS);
+    return storedUsers ? JSON.parse(storedUsers) : [];
+  });
+  const [currentUser, setCurrentUser] = useState<AuthUser | null>(() => {
+    const storedUser = localStorage.getItem(LOCAL_STORAGE_KEYS.CURRENT_USER);
+    return storedUser ? JSON.parse(storedUser) : null;
+  });
 
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEYS.AUTH_USERS, JSON.stringify(users));
+  }, [users]);
+
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEYS.CURRENT_USER, JSON.stringify(currentUser));
+  }, [currentUser]);
+  
   const signUp = ({ username, password, name }: RegisterFormFields): Promise<AuthResponseType> => {
     return new Promise((resolve, reject) => {
       setIsLoading(true);
