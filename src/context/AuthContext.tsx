@@ -59,6 +59,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   
         const newUser: AuthUser = { id: users.length + 1, username, password, name };
         setUsers((prevUsers) => [...prevUsers, newUser]);
+        setCurrentUser(newUser);
         setIsLoading(false);
         resolve({
           success: true,

@@ -13,6 +13,8 @@ const RegisterScreen = () => {
   const { notify, contextHolder } = useNotify();
   const navigate = useNavigate()
 
+  const onNavigateToHome = () => navigate(APP_ROUTES.ROOT)
+
   const onNavigateToLogin = () => navigate(APP_ROUTES.LOGIN)
 
   const onFinish = async (values: RegisterFormFields) => {
@@ -20,7 +22,7 @@ const RegisterScreen = () => {
       const res = await signUp(values)
       if (res.success) {
         setTimeout(() => {
-          onNavigateToLogin()
+          onNavigateToHome()
         }, 1000);
         notify(res.message, "", "success");
       }
