@@ -37,7 +37,14 @@ const EcHeader: React.FC = () => {
   }
 
   const drawerData = [
-    { key: "cart", label: "My Cart", onClick: () => { } },
+    {
+      key: "cart",
+      label: "My Cart",
+      onClick: () => {
+        onNavigateToMyCart()
+        toggleDrawer()
+      }
+    },
   ];
 
   const accountMenu: MenuProps = {

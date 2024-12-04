@@ -11,7 +11,8 @@ export type CartState = {
 export type CartAction =
   | { type: "ADD_ITEM"; payload: { userId: number; item: CartItem } }
   | { type: "REMOVE_ITEM"; payload: { userId: number; id: number } }
-  | { type: "UPDATE_QUANTITY"; payload: { userId: number; id: number; quantity: number } };
+  | { type: "UPDATE_QUANTITY"; payload: { userId: number; id: number; quantity: number } }
+  | { type: "LOAD_CART"; payload: CartState };
 
 export type CartContextType = {
   cartItems: CartItem[];
