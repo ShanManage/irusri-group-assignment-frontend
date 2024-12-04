@@ -1,11 +1,15 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { productService } from "../../services";
+import { RootState } from "../store";
 
 export const getAllProducts = createAsyncThunk(
   'product/get-all',
-  async () => {
-    const products = await productService.getAllProducts()
-    console.log('action', products)
+  async (_, { getState }) => {
+    const state = getState() as RootState;
+
+    const { page, searchKeyWord, itemsPerPage } = state.product
+    
+    const products = await productService.getAllProducts({page, searchKeyWord, itemsPerPage})
     return products
   }
 )

@@ -1,7 +1,7 @@
 import { Col, Divider, Empty, Flex, Modal, Pagination, Row, Skeleton, Typography } from "antd"
-import { APP_PAGINATE_CONFIG, DUMMY_PRODUCT_LIST } from "../../constant"
+import { APP_PAGINATE_CONFIG } from "../../constant"
 import { EcProductCard } from "../../components/composite"
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useCart } from "../../context/CartContext";
 import { Product } from "../../interface";
 import { useAuth } from "../../context/AuthContext";
@@ -11,6 +11,7 @@ import { Login, Register } from "../../components/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux";
 import { productAction } from "../../redux/action/product";
+import { setCurrentPage } from "../../redux/slice/product";
 
 const { Text, Link } = Typography;
 
@@ -19,27 +20,22 @@ const HomeScreen = () => {
   const { addItem } = useCart();
   const { notify, contextHolder } = useNotify();
   const { authenticate, currentUser, signUp } = useAuth()
-  const [page, setPage] = useState(APP_PAGINATE_CONFIG.DEFAULT_PAGE);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
   const [pendingProduct, setPendingProduct] = useState<Product | null>(null);
 
-  const products = useSelector((state: RootState) => state.product.products)
+  const productResponse = useSelector((state: RootState) => state.product.allProducts)
   const isLoading = useSelector((state: RootState) => state.product.isLoading)
+  const page = useSelector((state: RootState) => state.product.page)
+  const searchKeyWord = useSelector((state: RootState) => state.product.searchKeyWord)
 
   useEffect(() => {
     dispatch(productAction.getAllProducts())
-  }, [])
+  }, [page, searchKeyWord])
 
   const handlePageChange = (page: number) => {
-    setPage(page);
+    dispatch(setCurrentPage(page));
   };
-
-  const paginatedProducts = useMemo(() => {
-    const startIndex = (page - 1) * APP_PAGINATE_CONFIG.DEFAULT_ITEMS_PER_PAGE;
-    const endIndex = startIndex + APP_PAGINATE_CONFIG.DEFAULT_ITEMS_PER_PAGE;
-    return products.slice(startIndex, endIndex);
-  }, [page, products]);
 
   const handleAddToCart = (product: Product) => {
     if (!currentUser) {
@@ -108,7 +104,7 @@ const HomeScreen = () => {
 
   if (isLoading) return renderSkeleton()
 
-  if (products.length === 0) return <Empty />
+  if (productResponse.data.length === 0) return <Empty />
 
   return (
     <>
@@ -116,7 +112,7 @@ const HomeScreen = () => {
       <div className="container">
         <Divider />
         <Row gutter={[16, 16]} justify="center">
-          {paginatedProducts.map((product, index) => (
+          {productResponse.data.map((product, index) => (
             <Col
               key={index}
               xs={24}
@@ -139,7 +135,7 @@ const HomeScreen = () => {
           <Pagination
             current={page}
             pageSize={APP_PAGINATE_CONFIG.DEFAULT_ITEMS_PER_PAGE}
-            total={DUMMY_PRODUCT_LIST.length}
+            total={productResponse.count}
             onChange={handlePageChange}
             showSizeChanger={false}
           />

@@ -7,7 +7,20 @@ export interface Product {
 }
 
 export interface ProductState {
+  page: number
+  itemsPerPage: number
   isLoading: boolean
-  products: Product[]
+  allProducts: GetAllProductsResponse
   searchKeyWord: string
+}
+
+export interface ProductQueryParams {
+  page: number;
+  itemsPerPage: number;
+  searchKeyWord: string;
+}
+
+export interface GetAllProductsResponse {
+  count: number
+  data: Product[]
 }
