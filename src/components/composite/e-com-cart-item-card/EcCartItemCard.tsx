@@ -54,6 +54,7 @@ const EcCartItemCard = ({
               icon={<MinusOutlined />}
               className={styles.minus}
               onClick={() => onUpdate(id, quantity - 1)}
+              disabled={quantity === 1}
             />
             <Input disabled value={quantity}/>
             <EcButton
