@@ -1,6 +1,9 @@
 import { Action, ThunkAction, combineReducers, configureStore } from "@reduxjs/toolkit";
+import { productReducer } from "./slice";
 
-const rootReducer = combineReducers({})
+const rootReducer = combineReducers({
+  product: productReducer
+})
 
 export const store = configureStore({
   reducer: rootReducer,
