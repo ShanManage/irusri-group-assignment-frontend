@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import styles from './EcHeader.module.scss';
 import {
   MenuOutlined,
@@ -13,11 +13,16 @@ import { useNavigate } from 'react-router-dom';
 import { APP_ROUTES } from '../../../constant';
 import { useCart } from '../../../context/CartContext';
 import { useNotify } from '../../../hooks';
+import { debounce } from "lodash";
+import { AppDispatch } from '../../../redux';
+import { useDispatch } from 'react-redux';
+import { setSearchKeyword } from '../../../redux/slice/product';
 
 const { Text, Title } = Typography
 
 const EcHeader: React.FC = () => {
   const navigate = useNavigate()
+  const dispatch = useDispatch<AppDispatch>()
   const { notify, contextHolder } = useNotify();
   const { cartItems } = useCart();
   const { currentUser, signOut } = useAuth()
@@ -70,6 +75,18 @@ const EcHeader: React.FC = () => {
       ],
   };
 
+  const handleSearch = useMemo(
+    () =>
+      debounce((value: string) => {
+        dispatch(setSearchKeyword(value));
+      }, 300),
+    [dispatch]
+  );
+
+  useEffect(() => {
+    return () => handleSearch.cancel();
+  }, [handleSearch]);
+  
   return (
     <>
       {contextHolder}
@@ -86,7 +103,12 @@ const EcHeader: React.FC = () => {
 
         {/* Desktop Search Bar */}
         <div className={styles.search}>
-          <EcInput placeholder="What are you looking for ...?" type='search' suffix={<SearchOutlined />} />
+          <EcInput
+            placeholder="What are you looking for...?"
+            type="search"
+            suffix={<SearchOutlined />}
+            onChange={(e) => handleSearch(e.target.value)} // Use debounced handler
+          />
         </div>
 
         {/* Desktop Icons */}

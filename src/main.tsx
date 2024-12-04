@@ -6,15 +6,18 @@ import './styles/ant-overrides.css'
 import './styles/main.scss'
 import { AuthProvider } from './context/AuthContext.tsx'
 import { CartProvider } from './context/CartContext.tsx'
+import { Providers } from './redux'
 
 const config: ThemeConfig = {}
 
 createRoot(document.getElementById('root')!).render(
-  <AuthProvider>
-    <CartProvider>
-      <ConfigProvider theme={config}>
-        <App />
-      </ConfigProvider>
-    </CartProvider>
-  </AuthProvider>,
+  <Providers>
+    <AuthProvider>
+      <CartProvider>
+        <ConfigProvider theme={config}>
+          <App />
+        </ConfigProvider>
+      </CartProvider>
+    </AuthProvider>
+  </Providers>,
 )
