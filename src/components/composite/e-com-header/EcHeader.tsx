@@ -5,6 +5,7 @@ import {
   ShoppingCartOutlined,
   SearchOutlined,
   UserOutlined,
+  FilterOutlined
 } from '@ant-design/icons';
 import { Drawer, Dropdown, Flex, List, MenuProps, Typography } from 'antd';
 import { EcIcon, EcInput } from '../../atom';
@@ -14,9 +15,10 @@ import { APP_ROUTES } from '../../../constant';
 import { useCart } from '../../../context/CartContext';
 import { useNotify } from '../../../hooks';
 import { debounce } from "lodash";
-import { AppDispatch } from '../../../redux';
-import { useDispatch } from 'react-redux';
-import { setSearchKeyword } from '../../../redux/slice/product';
+import { AppDispatch, RootState } from '../../../redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCategory, setSearchKeyword } from '../../../redux/slice/product';
+import { categoryAction } from '../../../redux/action';
 
 const { Text, Title } = Typography
 
@@ -27,6 +29,13 @@ const EcHeader: React.FC = () => {
   const { cartItems } = useCart();
   const { currentUser, signOut } = useAuth()
   const [drawerVisible, setDrawerVisible] = useState(false);
+
+  const isLoading = useSelector((state: RootState) => state.category.isLoading)
+  const categories = useSelector((state: RootState) => state.category.categories)
+
+  useEffect(() => {
+    dispatch(categoryAction.getAllProductCategories())
+  }, [])
 
   const toggleDrawer = () => setDrawerVisible(!drawerVisible);
 
@@ -75,6 +84,38 @@ const EcHeader: React.FC = () => {
       ],
   };
 
+  const categoryMenu: MenuProps = {
+    items: isLoading
+      ? [
+        {
+          key: "loading",
+          label: "Loading...",
+          disabled: true,
+        },
+      ]
+      : categories.length > 0
+        ? [
+          {
+            key: "all",
+            label: "All Categories",
+            onClick: () => dispatch(setCategory('')),
+          },
+          { type: "divider" },
+          ...categories.map((category, index) => ({
+            key: `category-${index}`,
+            label: category,
+            onClick: () => dispatch(setCategory(category)),
+          })),
+        ]
+        : [
+          {
+            key: "no-categories",
+            label: "No Categories Found",
+            disabled: true,
+          },
+        ],
+  };
+
   const handleSearch = useMemo(
     () =>
       debounce((value: string) => {
@@ -86,7 +127,7 @@ const EcHeader: React.FC = () => {
   useEffect(() => {
     return () => handleSearch.cancel();
   }, [handleSearch]);
-  
+
   return (
     <>
       {contextHolder}
@@ -116,6 +157,9 @@ const EcHeader: React.FC = () => {
           <EcIcon icon={ShoppingCartOutlined} text="My Cart" onClick={onNavigateToMyCart} count={cartItems.length} />
           <Dropdown menu={accountMenu} trigger={["click"]}>
             <EcIcon icon={UserOutlined} text="My Account" onClick={() => { }} />
+          </Dropdown>
+          <Dropdown menu={categoryMenu} trigger={["click"]}>
+            <EcIcon icon={FilterOutlined} text="All Categories" onClick={() => { }} />
           </Dropdown>
         </Flex>
 
