@@ -27,7 +27,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   const [users, setUsers] = useState<AuthUser[]>([]);
   const [currentUser, setCurrentUser] = useState<AuthUser | null>(null);
 
-  const signUp = ({ username, password }: RegisterFormFields): Promise<AuthResponseType> => {
+  const signUp = ({ username, password, name }: RegisterFormFields): Promise<AuthResponseType> => {
     return new Promise((resolve, reject) => {
       setIsLoading(true);
       setTimeout(() => {
@@ -42,7 +42,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
           return;
         }
   
-        const newUser: AuthUser = { id: users.length + 1, username, password };
+        const newUser: AuthUser = { id: users.length + 1, username, password, name };
         setUsers((prevUsers) => [...prevUsers, newUser]);
         setIsLoading(false);
         resolve({

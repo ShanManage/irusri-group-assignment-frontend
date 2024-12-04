@@ -13,6 +13,7 @@ export interface AuthProviderProps {
 }
 export interface AuthUser {
   id: number
+  name: string
   username: string;
   password: string;
 }
@@ -22,6 +23,7 @@ export interface LoginFormFields {
 }
 
 export interface RegisterFormFields {
+  name: string
   username: string
   password: string
 }

@@ -5,7 +5,7 @@ import {
   Space,
   Typography,
 } from "antd"
-import { LockOutlined, MailOutlined } from '@ant-design/icons';
+import { LockOutlined, MailOutlined, UserOutlined } from '@ant-design/icons';
 import { RegisterFormFields, RegisterProps } from "../../../interface";
 import { EcButton } from "../../atom";
 import { APP_ROUTES } from "../../../constant";
@@ -30,6 +30,18 @@ const Register = ({ onFinish }: RegisterProps) => {
 
       <Form onFinish={onFinish}>
         <Space direction="vertical" className="full-width">
+          <Form.Item<RegisterFormFields>
+            name="name"
+            rules={[
+              { required: true, message: 'Please enter your name!' },
+            ]}
+          >
+            <Input
+              size='large'
+              prefix={<UserOutlined />}
+              placeholder='Your Name'
+            />
+          </Form.Item>
           <Form.Item<RegisterFormFields>
             name="username"
             rules={[
