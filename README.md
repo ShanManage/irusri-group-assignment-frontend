@@ -16,6 +16,7 @@ Source of the application is structured according to the following structure.
     - `hooks` - Custom hooks
     - `interface` - interfaces of the application
     - `pages` - pages of the application which combines components
+    - `redux` - redux toolkit slices, actions and state
     - `routes` - Application routing configurations
     - `styles` - global/reusable styles of the application
 - `.eslintrc.json` - ES Lint configurations
@@ -38,9 +39,6 @@ Execute below NPM script in the root directory to install required dependencies.
 ```bash
 npm install
 ```
-
-#### Environment configuration
-Read **.env.example** to find all the required env configurations. Strongly recommended to update the .env.example file if there is any change added to env configurations.
 
 ## Starting the development server
 
