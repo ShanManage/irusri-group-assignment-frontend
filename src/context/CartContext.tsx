@@ -1,6 +1,7 @@
-import React, { createContext, useContext, useReducer } from "react";
+import React, { createContext, useContext, useEffect, useReducer } from "react";
 import { useAuth } from "../context/AuthContext";
 import { CartContextType, CartState, CartAction, CartItem } from "../interface";
+import { LOCAL_STORAGE_KEYS } from "../constant";
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
@@ -47,6 +48,10 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
         userCart: { ...state.userCart, [userId]: updatedItems },
       };
     }
+    case "LOAD_CART": {
+      const newState: CartState = action.payload;
+      return newState;
+    }
     default:
       return state;
   }
@@ -57,6 +62,18 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [state, dispatch] = useReducer(cartReducer, initialCartState);
 
   const userId = currentUser?.id;
+
+  useEffect(() => {
+    const storedCart = localStorage.getItem(LOCAL_STORAGE_KEYS.CART_DATA);
+    if (storedCart) {
+      const parsedCart = JSON.parse(storedCart) as CartState;
+      dispatch({ type: "LOAD_CART", payload: parsedCart });
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEYS.CART_DATA, JSON.stringify(state));
+  }, [state]);
 
   const addItem = (item: CartItem) => {
     if (!userId) {
