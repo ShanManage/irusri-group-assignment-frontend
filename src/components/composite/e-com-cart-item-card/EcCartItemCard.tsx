@@ -29,12 +29,12 @@ const EcCartItemCard = ({
       bordered={false}
       className={styles.card}
     >
-      <Flex justify="space-between">
+      <Flex justify="space-between" className={styles.body}>
 
-        <Flex gap={15}>
+        <Flex gap={15} className={styles.header}>
           <Image preview={false} alt={title} width={200} src={image} />
 
-          <Flex vertical align="left" justify="center">
+          <Flex vertical justify="center">
             <Typography.Text type="secondary" ellipsis>
               {subtitle}
             </Typography.Text>
@@ -47,7 +47,8 @@ const EcCartItemCard = ({
           </Flex>
         </Flex>
 
-        <Flex vertical align="left" justify="space-between" style={{ width: 200 }}>
+        <Flex vertical justify="space-between" className={styles.actions}>
+        <Flex justify="center">
           <Space size={0}>
             <EcButton
               type="secondary"
@@ -64,6 +65,7 @@ const EcCartItemCard = ({
               onClick={() => onUpdate(id, quantity + 1)}
             />
           </Space>
+          </Flex>
           <Divider />
           <Flex justify="space-between" align="center">
             <Typography.Text type="secondary" ellipsis>

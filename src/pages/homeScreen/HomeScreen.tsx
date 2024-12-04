@@ -36,6 +36,7 @@ const HomeScreen = () => {
       setIsModalOpen(true);
     } else {
       addItem({ ...product, quantity: 1 });
+      notify("Item added successfully to the cart", "", "success");
     }
   };
 
@@ -75,6 +76,7 @@ const HomeScreen = () => {
     if (currentUser && pendingProduct) {
       addItem({ ...pendingProduct, quantity: 1 });
       setPendingProduct(null);
+      notify("Item added successfully to the cart", "", "success");
     }
   }, [currentUser, pendingProduct])
 
